@@ -25,7 +25,7 @@ namespace knuth_morris_pratt
         {
             int n = str1.Length;
             int m = str2.Length;
-
+            int count = 0;
             int[] d = GetPrefixFunction(str2);
 
             int i = 0, j = 0;
@@ -33,28 +33,45 @@ namespace knuth_morris_pratt
             {
                 if (str1[i] == str2[j])
                 {
+                    Console.WriteLine(str2[j] + " " +str1[i] );
+
                     j++;
                     i++;
+                    count++;
                 }
 
                 else if (j == 0)
                 {
+                    Console.WriteLine(str2[j] + " " + str1[i]);
+
+
                     i++;
+
+                    count++;
                 }
                 else
                 {
-                    j = d[j - 1];
-                }
+                    Console.WriteLine(str2[j] + " " + str1[i]);
 
+
+                    count++;
+                    i = i-d[j-1];
+                    j = 0;
+                }
+                
             }
 
             if (j == m)
             {
+                Console.WriteLine("Operation count : " + count);
                 Console.WriteLine("UnderIndex : ");
                 return i - j + 1;
             }
             else
+            {    Console.WriteLine("Operation count : " + count);
+            
                 return -1;
+            }
         }
 
         private static int[] GetPrefixFunction(string str2)
